@@ -29,7 +29,10 @@ class Theme(object):
         subprocess.Popen([SCRIPT_SHELL, self.path])
 
     def run_alias(self):
-        subprocess.Popen([USER_SHELL, '-ic', 'base16_{}'.format(self.name)])
+        if USER_SHELL.endswith('fish'):
+            subprocess.check_output([USER_SHELL, '-ic', 'base16-{}'.format(self.name)])
+        else:
+            subprocess.check_output([USER_SHELL, '-ic', 'base16_{}'.format(self.name)])
 
 
 class PreviewWindow(object):
